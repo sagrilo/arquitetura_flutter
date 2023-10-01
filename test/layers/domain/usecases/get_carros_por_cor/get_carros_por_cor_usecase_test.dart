@@ -13,20 +13,26 @@ main() {
     GetCarrosPorCorUseCase useCase = GetCarrosPorCorUseCaseImp(
       GetCarrosPorCorRepositoryImp(GetCarrosPorCorLocalDataSourceImp()));
     var resultado = useCase('azul');
-    expect(resultado, isInstanceOf<CarroEntity>());
+    late CarroEntity carroEntity;
+    resultado.fold((l) => null, (r) => carroEntity = r);
+    expect(carroEntity, isInstanceOf<CarroEntity>());
   });
 
   test('Deve retornar um carro de 4 portas quando vermelho', () {
     GetCarrosPorCorUseCase useCase = GetCarrosPorCorUseCaseImp(
         GetCarrosPorCorRepositoryImp(GetCarrosPorCorLocalDataSourceImp()));
     var resultado = useCase('vermelho');
-    expect(resultado.qtdPortas, 4);
+    late CarroEntity carroEntity;
+    resultado.fold((l) => null, (r) => carroEntity = r);
+    expect(carroEntity.qtdPortas, 4);
   });
 
   test('Deve retornar um carro de 2 portas quando qualquer cor exceto vermelho', () {
     GetCarrosPorCorUseCase useCase = GetCarrosPorCorUseCaseImp(
         GetCarrosPorCorRepositoryImp(GetCarrosPorCorLocalDataSourceImp()));
     var resultado = useCase('verde');
-    expect(resultado.qtdPortas, 2);
+    late CarroEntity carroEntity;
+    resultado.fold((l) => null, (r) => carroEntity = r);
+    expect(carroEntity.qtdPortas, 2);
   });
 }

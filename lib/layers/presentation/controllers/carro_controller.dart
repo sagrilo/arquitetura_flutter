@@ -3,25 +3,27 @@ import 'package:arquitetura_padrao/layers/domain/usecases/get_carros_por_cor/get
 import 'package:arquitetura_padrao/layers/domain/usecases/salvar_carro_favorito/salvar_carro_favorito_usecase.dart';
 
 class CarroController {
-
   final GetCarrosPorCorUseCase _getCarrosPorCorUseCase;
   final SalvarCarroFavoritoUseCase _salvarCarroFavoritoUseCase;
 
   CarroController(
-      this._getCarrosPorCorUseCase,
-      this._salvarCarroFavoritoUseCase,
-      ) {
+    this._getCarrosPorCorUseCase,
+    this._salvarCarroFavoritoUseCase,
+  ) {
     getCarrosPorCor('Vermelho');
   }
 
   late CarroEntity carro;
 
   getCarrosPorCor(String cor) {
-    carro = _getCarrosPorCorUseCase(cor);
+    var result = _getCarrosPorCorUseCase(cor);
+    result.fold(
+      (error) => print(error.toString()),
+      (sucess) => carro = sucess,
+    );
   }
 
   salvarCarroFavorito(CarroEntity carro) async {
     var result = await _salvarCarroFavoritoUseCase(carro);
   }
-
 }
